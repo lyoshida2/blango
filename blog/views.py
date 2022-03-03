@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render
 from django.utils import timezone
 from blog.models import Post
@@ -5,8 +6,11 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from blog.forms import CommentForm
 
+logger = logging.getLogger(__name__)
+
 def index(request):
     posts = Post.objects.all()
+    logger.debug("Got %d posts", len(posts))
     return render(request, "blog/index.html", {"posts": posts})
 
 def post_detail(request, slug):
@@ -21,6 +25,7 @@ def post_detail(request, slug):
                 comment.content_object = post
                 comment.creator = request.user
                 comment.save()
+                logger.info("Created comment on Post %d for user %s", post.pk, request.user)
                 return redirect(request.path_info)
         else:
             comment_form = CommentForm()
