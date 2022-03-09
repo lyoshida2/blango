@@ -55,6 +55,7 @@ class Dev(Configuration):
         'blango_auth',
         'crispy_forms',
         'crispy_bootstrap5',
+        'drf_yasg',
     ]
 
     MIDDLEWARE = [
@@ -204,6 +205,13 @@ class Dev(Configuration):
         "DEFAULT_PERMISSION_CLASSES": [
             "rest_framework.permissions.IsAuthenticatedOrReadOnly"
         ],
+    }
+
+    SWAGGER_SETTINGS = {
+        "SECURITY_DEFINITIONS": {
+            "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+            "Basic": {"type": "basic"},
+        }
     }
 
 class Prod(Dev):
