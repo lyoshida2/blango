@@ -49,6 +49,7 @@ class Dev(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
         'debug_toolbar',
+        'rest_framework',
         'blog',
         'blango_auth',
         'crispy_forms',
